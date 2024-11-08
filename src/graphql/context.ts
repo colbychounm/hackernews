@@ -1,9 +1,9 @@
-import HackerNewsAPI from "./data-sources/hackernews-api";
+import dataSources from "./data-sources";
 
 export interface MyContext {
-  hackerNews: HackerNewsAPI;
+  dataSources: typeof dataSources;
 }
 
 export default async function context(): Promise<MyContext> {
-  return { hackerNews: new HackerNewsAPI() };
+  return { dataSources };
 }

@@ -3,8 +3,8 @@ import { MyContext } from "./context";
 
 const resolvers: Resolvers<MyContext> = {
   Query: {
-    async user(_, { id }, { hackerNews }) {
-      return hackerNews.getUser(id);
+    async user(_, { id }, { dataSources }) {
+      return dataSources.hackerNewsAPI.getUser(id);
     },
   },
 };
