@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import Sidebar from "../components/SideBar";
+import ApolloContainer from "../containers/ApolloContainer";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -28,7 +30,16 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <ApolloContainer>
+          <div className="flex">
+            <aside className="fixed top-0 w-80 h-screen border-r border-r-gray-500 border-opacity-45 bg-black">
+              <Sidebar />
+            </aside>
+            <div className="main">
+              <main className="container mx-auto">{children}</main>
+            </div>
+          </div>
+        </ApolloContainer>
       </body>
     </html>
   );

@@ -1,43 +1,119 @@
 import gql from "graphql-tag";
 
 const typeDefs = gql`
+  # ********** Query **********
   type Query {
-    user(id: ID!): User
-    item(id: ID!): Item
+    item(id: Int!): Item
+    items(type: ListType!, first: Int, after: Int): ItemConnection!
   }
 
-  type Item {
-    id: ID!
-    deleted: Boolean
+  # ********** Interface **********
+  interface BaseItem {
+    id: Int!
     type: ItemType!
-    by: String
-    time: Int
+    by: String!
+    time: Int!
+  }
+
+  # ********** Type **********
+  type ItemConnection {
+    edges: [EdgeType!]!
+    pageInfo: PageInfo!
+  }
+
+  type EdgeType {
+    cursor: Int!
+    node: Item!
+  }
+
+  type PageInfo {
+    hasNextPage: Boolean!
+    endCursor: Int
+  }
+
+  type Story implements BaseItem {
+    id: Int!
+    by: String!
+    type: ItemType!
+    time: Int!
     text: String
-    dead: Boolean
-    parent: Int
-    poll: Int
-    kids: [Int]
+    descendants: Int!
+    kids: [Int!]
+    score: Int!
+    title: String!
     url: String
-    score: Int
-    title: String
-    parts: [Int]
-    descendants: Int
+  }
+
+  type Comment implements BaseItem {
+    id: Int!
+    by: String!
+    type: ItemType!
+    time: Int!
+    text: String
+    kids: [Int!]
+    parent: Int!
+  }
+
+  type Job implements BaseItem {
+    id: Int!
+    by: String!
+    type: ItemType!
+    time: Int!
+    score: Int!
+    text: String
+    title: String!
+    url: String
+  }
+
+  type Poll implements BaseItem {
+    id: Int!
+    type: ItemType!
+    by: String!
+    time: Int!
+    descendants: Int!
+    kids: [Int!]
+    parts: [Int!]!
+    score: Int!
+    text: String
+    title: String!
+  }
+
+  type PollOpt implements BaseItem {
+    id: Int!
+    type: ItemType!
+    by: String!
+    time: Int!
+    poll: Int!
+    score: Int!
+    text: String
   }
 
   type User {
-    id: ID!
+    id: Int!
     created: Int
     karma: Int
     about: String
     submitted: [Int]
   }
 
+  # ********** Union **********
+  union Item = Story | Comment | Job | Poll | PollOpt
+
+  # ********** Enum **********
   enum ItemType {
-    JOB
-    STORY
-    COMMENT
-    POLL
-    POLL_OPT
+    job
+    story
+    comment
+    poll
+    pollopt
+  }
+
+  enum ListType {
+    topstories
+    newstories
+    askstories
+    showstories
+    jobstories
   }
 `;
 
