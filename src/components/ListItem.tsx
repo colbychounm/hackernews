@@ -1,14 +1,19 @@
+"use client";
+
+import { useLayoutContext } from "@/containers/LayoutContainer";
 import {
   ChatBubbleBottomCenterTextIcon,
   ClockIcon,
 } from "@heroicons/react/24/outline";
 import { ChevronUpIcon } from "@heroicons/react/24/solid";
 
-interface ListItemProps<T> {
-  item: T;
+interface ListItemProps {
+  item: any;
 }
 
-export default function ListItem<T>({ item }: ListItemProps<T>) {
+export default function ListItem({ item }: ListItemProps) {
+  const context = useLayoutContext();
+  console.log(item);
   return (
     <div className="flex items-center py-4 border-b border-gray-500 border-opacity-65 last:border-0">
       <div className="flex-1">
@@ -22,6 +27,14 @@ export default function ListItem<T>({ item }: ListItemProps<T>) {
             <ClockIcon className="w-4 h-4" />
             6h ago
           </span>
+          <div
+            onClick={() => {
+              context.setShouldParallelRoutes(true);
+              context.state.userId = item.by;
+            }}
+          >
+            by {item.by}
+          </div>
         </div>
       </div>
 

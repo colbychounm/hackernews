@@ -16,6 +16,8 @@ function List({ type }: ListProps) {
     },
   });
 
+  console.log("data", data);
+
   return (
     <div className="flex-1">
       <ul className="py-4">

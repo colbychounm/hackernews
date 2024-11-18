@@ -38,10 +38,8 @@ export type Comment = BaseItem & {
 export type EdgeType = {
   __typename?: 'EdgeType';
   cursor: Scalars['Int']['output'];
-  node: Item;
+  node: BaseItem;
 };
-
-export type Item = Comment | Job | Poll | PollOpt | Story;
 
 export type ItemConnection = {
   __typename?: 'ItemConnection';
@@ -110,8 +108,9 @@ export type PollOpt = BaseItem & {
 
 export type Query = {
   __typename?: 'Query';
-  item?: Maybe<Item>;
+  item?: Maybe<BaseItem>;
   items: ItemConnection;
+  user?: Maybe<User>;
 };
 
 
@@ -124,6 +123,11 @@ export type QueryItemsArgs = {
   after?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   type: ListType;
+};
+
+
+export type QueryUserArgs = {
+  id: Scalars['String']['input'];
 };
 
 export type Story = BaseItem & {
@@ -144,7 +148,7 @@ export type User = {
   __typename?: 'User';
   about?: Maybe<Scalars['String']['output']>;
   created?: Maybe<Scalars['Int']['output']>;
-  id: Scalars['Int']['output'];
+  id: Scalars['String']['output'];
   karma?: Maybe<Scalars['Int']['output']>;
   submitted?: Maybe<Array<Maybe<Scalars['Int']['output']>>>;
 };
@@ -217,10 +221,6 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
   info: GraphQLResolveInfo
 ) => TResult | Promise<TResult>;
 
-/** Mapping of union types */
-export type ResolversUnionTypes<_RefType extends Record<string, unknown>> = ResolversObject<{
-  Item: ( Comment ) | ( Job ) | ( Poll ) | ( PollOpt ) | ( Story );
-}>;
 
 /** Mapping of interface types */
 export type ResolversInterfaceTypes<_RefType extends Record<string, unknown>> = ResolversObject<{
@@ -232,9 +232,8 @@ export type ResolversTypes = ResolversObject<{
   BaseItem: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['BaseItem']>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   Comment: ResolverTypeWrapper<Comment>;
-  EdgeType: ResolverTypeWrapper<Omit<EdgeType, 'node'> & { node: ResolversTypes['Item'] }>;
+  EdgeType: ResolverTypeWrapper<Omit<EdgeType, 'node'> & { node: ResolversTypes['BaseItem'] }>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
-  Item: ResolverTypeWrapper<ResolversUnionTypes<ResolversTypes>['Item']>;
   ItemConnection: ResolverTypeWrapper<Omit<ItemConnection, 'edges'> & { edges: Array<ResolversTypes['EdgeType']> }>;
   ItemType: ItemType;
   Job: ResolverTypeWrapper<Job>;
@@ -253,9 +252,8 @@ export type ResolversParentTypes = ResolversObject<{
   BaseItem: ResolversInterfaceTypes<ResolversParentTypes>['BaseItem'];
   Boolean: Scalars['Boolean']['output'];
   Comment: Comment;
-  EdgeType: Omit<EdgeType, 'node'> & { node: ResolversParentTypes['Item'] };
+  EdgeType: Omit<EdgeType, 'node'> & { node: ResolversParentTypes['BaseItem'] };
   Int: Scalars['Int']['output'];
-  Item: ResolversUnionTypes<ResolversParentTypes>['Item'];
   ItemConnection: Omit<ItemConnection, 'edges'> & { edges: Array<ResolversParentTypes['EdgeType']> };
   Job: Job;
   PageInfo: PageInfo;
@@ -288,12 +286,8 @@ export type CommentResolvers<ContextType = any, ParentType extends ResolversPare
 
 export type EdgeTypeResolvers<ContextType = any, ParentType extends ResolversParentTypes['EdgeType'] = ResolversParentTypes['EdgeType']> = ResolversObject<{
   cursor?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  node?: Resolver<ResolversTypes['Item'], ParentType, ContextType>;
+  node?: Resolver<ResolversTypes['BaseItem'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type ItemResolvers<ContextType = any, ParentType extends ResolversParentTypes['Item'] = ResolversParentTypes['Item']> = ResolversObject<{
-  __resolveType: TypeResolveFn<'Comment' | 'Job' | 'Poll' | 'PollOpt' | 'Story', ParentType, ContextType>;
 }>;
 
 export type ItemConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['ItemConnection'] = ResolversParentTypes['ItemConnection']> = ResolversObject<{
@@ -346,8 +340,9 @@ export type PollOptResolvers<ContextType = any, ParentType extends ResolversPare
 }>;
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
-  item?: Resolver<Maybe<ResolversTypes['Item']>, ParentType, ContextType, RequireFields<QueryItemArgs, 'id'>>;
+  item?: Resolver<Maybe<ResolversTypes['BaseItem']>, ParentType, ContextType, RequireFields<QueryItemArgs, 'id'>>;
   items?: Resolver<ResolversTypes['ItemConnection'], ParentType, ContextType, RequireFields<QueryItemsArgs, 'type'>>;
+  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserArgs, 'id'>>;
 }>;
 
 export type StoryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Story'] = ResolversParentTypes['Story']> = ResolversObject<{
@@ -367,7 +362,7 @@ export type StoryResolvers<ContextType = any, ParentType extends ResolversParent
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = ResolversObject<{
   about?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   created?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   karma?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   submitted?: Resolver<Maybe<Array<Maybe<ResolversTypes['Int']>>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -377,7 +372,6 @@ export type Resolvers<ContextType = any> = ResolversObject<{
   BaseItem?: BaseItemResolvers<ContextType>;
   Comment?: CommentResolvers<ContextType>;
   EdgeType?: EdgeTypeResolvers<ContextType>;
-  Item?: ItemResolvers<ContextType>;
   ItemConnection?: ItemConnectionResolvers<ContextType>;
   Job?: JobResolvers<ContextType>;
   PageInfo?: PageInfoResolvers<ContextType>;

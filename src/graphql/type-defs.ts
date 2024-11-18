@@ -3,8 +3,9 @@ import gql from "graphql-tag";
 const typeDefs = gql`
   # ********** Query **********
   type Query {
-    item(id: Int!): Item
+    item(id: Int!): BaseItem
     items(type: ListType!, first: Int, after: Int): ItemConnection!
+    user(id: String!): User
   }
 
   # ********** Interface **********
@@ -23,7 +24,7 @@ const typeDefs = gql`
 
   type EdgeType {
     cursor: Int!
-    node: Item!
+    node: BaseItem!
   }
 
   type PageInfo {
@@ -89,15 +90,12 @@ const typeDefs = gql`
   }
 
   type User {
-    id: Int!
+    id: String!
     created: Int
     karma: Int
     about: String
     submitted: [Int]
   }
-
-  # ********** Union **********
-  union Item = Story | Comment | Job | Poll | PollOpt
 
   # ********** Enum **********
   enum ItemType {

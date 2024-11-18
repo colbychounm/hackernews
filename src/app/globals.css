@@ -32,3 +32,11 @@ body {
   height: 100vh;
   margin-left: auto;
 }
+
+.details {
+  height: calc(100vh - var(--side-bar-width));
+  width: 24rem;
+  > div {
+    scrollbar-width: none;
+  }
+}

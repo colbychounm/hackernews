@@ -5,7 +5,6 @@ import { generateConnection } from "./utils";
 const resolvers: Resolvers<MyContext> = {
   Query: {
     async items(_, { type, first, after }, { dataSources }) {
-      console.log("query");
       const ids = await dataSources.hackerNewsAPI.getItems(type);
 
       return generateConnection(
@@ -16,10 +15,13 @@ const resolvers: Resolvers<MyContext> = {
       );
     },
     async item(_, { id }, { dataSources }) {
-      return dataSources.hackerNewsAPI.getItem(Number(id));
+      return await dataSources.hackerNewsAPI.getItem(Number(id));
+    },
+    async user(_, { id }, { dataSources }) {
+      return await dataSources.hackerNewsAPI.getUser(id);
     },
   },
-  Item: {
+  BaseItem: {
     __resolveType(obj) {
       switch (obj.type) {
         case ItemType.Story:

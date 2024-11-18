@@ -25,8 +25,7 @@ export default async function Page({
 }) {
   const type = mappingListType((await params).type);
   return (
-    <div className="flex flex-col h-full px-8">
-      <h1 className="my-4 text-2xl font-bold">Ask</h1>
+    <div className="h-full px-8">
       <List type={type} />
     </div>
   );

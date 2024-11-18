@@ -18,7 +18,7 @@ const NAVIGATION: NavigationProps[] = [
   },
   {
     label: "Comments",
-    to: "/comments",
+    to: "/newcomments",
     Icon: ChatBubbleBottomCenterIcon,
   },
 ];
