@@ -1,11 +1,7 @@
-import { gql } from "@apollo/client";
+import { graphql } from "@/gql";
 
-export const POLL_FIELDS = gql`
+export const POLL_FIELDS = graphql(`
   fragment PollFields on Poll {
-    id
-    by
-    time
-    type
     descendants
     kids
     parts
@@ -13,4 +9,4 @@ export const POLL_FIELDS = gql`
     text
     title
   }
-`;
+`);

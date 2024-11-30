@@ -1,14 +1,12 @@
-import { gql } from "@apollo/client";
-import { COMMENT_FIELDS } from "../fragments/comment";
-import { JOB_FIELDS } from "../fragments/job";
-import { POLL_FIELDS } from "../fragments/poll";
-import { POLLOPT_FIELDS } from "../fragments/pollopt";
-import { STORY_FIELDS } from "../fragments/story";
+import { graphql } from "@/gql";
 
-const GET_ITEM = gql`
+const GET_ITEM = graphql(`
   query Item($id: Int!) {
     item(id: $id) {
-      __typename
+      id
+      type
+      by
+      time
       ... on Comment {
         ...CommentFields
       }
@@ -26,11 +24,6 @@ const GET_ITEM = gql`
       }
     }
   }
-  ${COMMENT_FIELDS}
-  ${STORY_FIELDS}
-  ${JOB_FIELDS}
-  ${POLL_FIELDS}
-  ${POLLOPT_FIELDS}
-`;
+`);
 
 export default GET_ITEM;

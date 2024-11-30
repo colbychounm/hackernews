@@ -1,7 +1,7 @@
 "use client";
 
 import GET_USER from "@/documents/queries/get-user";
-import { UserQuery } from "@/gql/graphql";
+import { UserQuery, UserQueryVariables } from "@/gql/graphql";
 import { useQuery } from "@apollo/client";
 
 export default function UserDetails({
@@ -9,7 +9,7 @@ export default function UserDetails({
 }: Readonly<{
   userId: string;
 }>) {
-  const { data } = useQuery<UserQuery>(GET_USER, {
+  const { data } = useQuery<UserQuery, UserQueryVariables>(GET_USER, {
     variables: {
       id: userId,
     },
@@ -18,20 +18,16 @@ export default function UserDetails({
   return (
     <div>
       <div className="flex">
-        <p>User:</p>
-        <p>{data?.user?.id}</p>
+        <p>User:</p> <p>{data?.user?.id}</p>
       </div>
       <div className="flex">
-        <p>Created:</p>
-        <p>{data?.user?.created}</p>
+        <p>Created:</p> <p>{data?.user?.created}</p>
       </div>
       <div className="flex">
-        <p>Karma:</p>
-        <p>{data?.user?.karma}</p>
+        <p>Karma:</p> <p>{data?.user?.karma}</p>
       </div>
       <div className="flex">
-        <p>About:</p>
-        <p>{data?.user?.about}</p>
+        <p>About:</p> <p>{data?.user?.about}</p>
       </div>
     </div>
   );

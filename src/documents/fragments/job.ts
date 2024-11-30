@@ -1,14 +1,10 @@
-import { gql } from "@apollo/client";
+import { graphql } from "@/gql";
 
-export const JOB_FIELDS = gql`
+export const JOB_FIELDS = graphql(`
   fragment JobFields on Job {
-    id
-    by
-    time
-    type
     score
     text
     title
     url
   }
-`;
+`);

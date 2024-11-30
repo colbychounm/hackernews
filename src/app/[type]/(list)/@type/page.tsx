@@ -1,5 +1,6 @@
-import List from "@/components/List";
+import PaginatedList from "@/components/PaginatedList";
 import { ListType } from "@/gql/graphql";
+import { Suspense } from "react";
 
 export const dynamic = "force-static";
 
@@ -25,8 +26,10 @@ export default async function Page({
 }) {
   const type = mappingListType((await params).type);
   return (
-    <div className="h-full px-8">
-      <List type={type} />
+    <div className="h-full">
+      <Suspense fallback={<>Loading items...</>}>
+        <PaginatedList type={type} />
+      </Suspense>
     </div>
   );
 }

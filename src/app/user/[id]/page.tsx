@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import UserDetails from "./UserDetails";
 
 export default async function Page({
@@ -9,7 +10,9 @@ export default async function Page({
   return (
     <>
       User details Page
-      <UserDetails userId={id} />
+      <Suspense fallback={<>Loading user details...</>}>
+        <UserDetails userId={id} />
+      </Suspense>
     </>
   );
 }

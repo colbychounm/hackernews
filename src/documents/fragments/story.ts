@@ -1,11 +1,7 @@
-import gql from "graphql-tag";
+import { graphql } from "@/gql";
 
-export const STORY_FIELDS = gql`
+export const STORY_FIELDS = graphql(`
   fragment StoryFields on Story {
-    id
-    by
-    time
-    type
     text
     descendants
     kids
@@ -13,4 +9,4 @@ export const STORY_FIELDS = gql`
     title
     url
   }
-`;
+`);

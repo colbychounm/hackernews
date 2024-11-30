@@ -16,6 +16,7 @@
     "@apollo/server": "^4.11.2",
     "@as-integrations/next": "^3.1.0",
     "@heroicons/react": "^2.1.5",
+    "dayjs": "^1.11.13",
     "graphql": "^16.9.0",
     "graphql-tag": "^2.12.6",
     "next": "15.0.2",

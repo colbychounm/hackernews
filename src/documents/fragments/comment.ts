@@ -1,13 +1,9 @@
-import { gql } from "@apollo/client";
+import { graphql } from "@/gql";
 
-export const COMMENT_FIELDS = gql`
+export const COMMENT_FIELDS = graphql(`
   fragment CommentFields on Comment {
-    id
-    by
-    time
-    type
     text
     parent
     kids
   }
-`;
+`);

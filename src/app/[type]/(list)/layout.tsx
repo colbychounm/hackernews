@@ -11,6 +11,7 @@ export default function Layout({
   type: React.ReactNode;
   user: React.ReactNode;
   params: Promise<{ type: string }>;
+  children: React.ReactNode;
 }>) {
   return (
     <LayoutProvider>

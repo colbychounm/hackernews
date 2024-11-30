@@ -1,6 +1,6 @@
-import { gql } from "@apollo/client";
+import { graphql } from "@/gql";
 
-const GET_USER = gql`
+const GET_USER = graphql(`
   query User($id: String!) {
     user(id: $id) {
       id
@@ -10,6 +10,6 @@ const GET_USER = gql`
       submitted
     }
   }
-`;
+`);
 
 export default GET_USER;

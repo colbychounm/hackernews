@@ -5,7 +5,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --side-bar-width: 20rem;
+  --side-bar-width: 16rem;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -35,7 +35,7 @@ body {
 
 .details {
   height: calc(100vh - var(--side-bar-width));
-  width: 24rem;
+  width: 32rem;
   > div {
     scrollbar-width: none;
   }

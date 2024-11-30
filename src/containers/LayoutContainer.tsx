@@ -11,7 +11,8 @@ import {
 } from "react";
 
 interface State {
-  userId?: String;
+  userId?: string;
+  itemId?: number;
 }
 
 interface LayoutContext {
