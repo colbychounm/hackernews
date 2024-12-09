@@ -1,3 +1,4 @@
+import { error } from "console";
 import { MyContext } from "./context";
 import { ItemType, Resolvers } from "./types/resolvers";
 import { generateConnection } from "./utils";
@@ -35,8 +36,23 @@ const resolvers: Resolvers<MyContext> = {
         case ItemType.Pollopt:
           return "PollOpt";
         default:
-          return null;
+          throw error("Unknown type");
       }
+    },
+  },
+  Story: {
+    comments: (parent, _, { dataSources }) => {
+      return Promise.all(
+        parent.kids?.map((id) => dataSources.hackerNewsAPI.getItem(id)) || []
+      );
+    },
+  },
+  Comment: {
+    comments: (parent, _, { dataSources }) => {
+      parent;
+      return Promise.all(
+        parent.kids?.map((id) => dataSources.hackerNewsAPI.getItem(id)) || []
+      );
     },
   },
 };

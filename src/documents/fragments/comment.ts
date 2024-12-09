@@ -5,5 +5,10 @@ export const COMMENT_FIELDS = graphql(`
     text
     parent
     kids
+    comments {
+      text
+      parent
+      kids
+    }
   }
 `);

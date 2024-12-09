@@ -10,6 +10,10 @@ const config: CodegenConfig = {
     "src/graphql/types/resolvers.ts": {
       config: {
         useIndexSignature: true,
+        mappers: {
+          BaseItem: "../data-sources/hackernews-api#ItemDataSource",
+          Comment: "../data-sources/hackernews-api#ItemDataSource",
+        },
       },
       plugins: ["typescript", "typescript-resolvers"],
     },

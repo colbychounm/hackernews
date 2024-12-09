@@ -1,6 +1,6 @@
 "use client";
 
-import UserDetails from "@/components/UserDetails";
+import ItemDetails from "@/components/ItemDetails";
 import { useLayoutContext } from "@/containers/LayoutContainer";
 import { ArrowsPointingOutIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
@@ -11,7 +11,7 @@ export default function Page() {
   return (
     <>
       <div className="flex justify-end gap-3">
-        <Link href={`/user/${context.state.userId}`}>
+        <Link href={`/ask/${context.state.itemId}`}>
           <ArrowsPointingOutIcon className="w-5 h-5 text-gray-500" />
         </Link>
         <button
@@ -23,8 +23,8 @@ export default function Page() {
         </button>
       </div>
 
-      <Suspense fallback={<>Loading user details...</>}>
-        <UserDetails userId={context.state.userId!} />
+      <Suspense fallback={<>Loading details...</>}>
+        <ItemDetails id={context.state.itemId?.toString()!} />
       </Suspense>
     </>
   );

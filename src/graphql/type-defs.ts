@@ -12,7 +12,7 @@ const typeDefs = gql`
   interface BaseItem {
     id: Int!
     type: ItemType!
-    by: String!
+    by: String
     time: Int!
   }
 
@@ -34,12 +34,13 @@ const typeDefs = gql`
 
   type Story implements BaseItem {
     id: Int!
-    by: String!
+    by: String
     type: ItemType!
     time: Int!
     text: String
     descendants: Int!
     kids: [Int!]
+    comments: [Comment!]
     score: Int!
     title: String!
     url: String
@@ -47,17 +48,18 @@ const typeDefs = gql`
 
   type Comment implements BaseItem {
     id: Int!
-    by: String!
+    by: String
     type: ItemType!
     time: Int!
     text: String
     kids: [Int!]
+    comments: [Comment!]
     parent: Int!
   }
 
   type Job implements BaseItem {
     id: Int!
-    by: String!
+    by: String
     type: ItemType!
     time: Int!
     score: Int!
@@ -69,7 +71,7 @@ const typeDefs = gql`
   type Poll implements BaseItem {
     id: Int!
     type: ItemType!
-    by: String!
+    by: String
     time: Int!
     descendants: Int!
     kids: [Int!]
@@ -82,7 +84,7 @@ const typeDefs = gql`
   type PollOpt implements BaseItem {
     id: Int!
     type: ItemType!
-    by: String!
+    by: String
     time: Int!
     poll: Int!
     score: Int!

@@ -16,20 +16,20 @@ interface State {
 }
 
 interface LayoutContext {
-  shouldParallelRoutes: boolean;
-  setShouldParallelRoutes: Dispatch<SetStateAction<boolean>>;
+  parallelRoute: string;
+  setParallelRoute: Dispatch<SetStateAction<string>>;
   state: State;
 }
 
 export const LayoutContext = createContext<LayoutContext | null>(null);
 
 export default function LayoutProvider({ children }: PropsWithChildren) {
-  const [shouldParallelRoutes, setShouldParallelRoutes] = useState(false);
+  const [parallelRoute, setParallelRoute] = useState("");
   const state = useRef<State>({});
 
   const contextValues: LayoutContext = {
-    shouldParallelRoutes,
-    setShouldParallelRoutes,
+    parallelRoute,
+    setParallelRoute,
     state: state.current,
   };
 

@@ -1,11 +1,11 @@
-import { Item, ItemConnection } from "../types/resolvers";
+import { ResolversTypes } from "../types/resolvers";
 
 export async function generateConnection(
   ids: number[],
-  resolver: (id: number) => Promise<Item>,
+  resolver: (id: number) => Promise<ResolversTypes["BaseItem"]>,
   first?: number | null,
   after?: number | null
-): Promise<ItemConnection> {
+): Promise<ResolversTypes["ItemConnection"]> {
   const indexFromCursor = ids.findIndex((id) => id === after);
 
   const start = indexFromCursor ? indexFromCursor + 1 : 0;

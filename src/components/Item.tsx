@@ -36,7 +36,7 @@ export function Story({ item }: ItemProps<typeof STORY_FIELDS>) {
         <div className="flex text-gray-500">
           <button
             onClick={() => {
-              context.setShouldParallelRoutes(true);
+              context.setParallelRoute("details");
               context.state.itemId = item.id;
             }}
             className="w-40 flex items-center gap-2"
@@ -55,7 +55,7 @@ export function Story({ item }: ItemProps<typeof STORY_FIELDS>) {
           <button
             className="flex items-center gap-2"
             onClick={() => {
-              context.setShouldParallelRoutes(true);
+              context.setParallelRoute("user");
               context.state.userId = item.by;
             }}
           >
@@ -83,7 +83,7 @@ export function Comment({ item }: ItemProps<typeof COMMENT_FIELDS>) {
         <div className="flex text-gray-500">
           <span
             onClick={() => {
-              context.setShouldParallelRoutes(true);
+              context.setParallelRoute("details");
               context.state.itemId = item.id;
             }}
             className="w-40 flex items-center gap-2"
@@ -97,7 +97,7 @@ export function Comment({ item }: ItemProps<typeof COMMENT_FIELDS>) {
           </span>
           <div
             onClick={() => {
-              context.setShouldParallelRoutes(true);
+              context.setParallelRoute("user");
               context.state.userId = item.by;
             }}
           >
@@ -124,7 +124,7 @@ export function Job({ item }: ItemProps<typeof JOB_FIELDS>) {
         <div className="flex text-gray-500">
           <span
             onClick={() => {
-              context.setShouldParallelRoutes(true);
+              context.setParallelRoute("details");
               context.state.itemId = item.id;
             }}
             className="w-40 flex items-center gap-2"
@@ -138,7 +138,7 @@ export function Job({ item }: ItemProps<typeof JOB_FIELDS>) {
           </span>
           <div
             onClick={() => {
-              context.setShouldParallelRoutes(true);
+              context.setParallelRoute("user");
               context.state.userId = item.by;
             }}
           >
@@ -165,7 +165,7 @@ export function Poll({ item }: ItemProps<typeof POLL_FIELDS>) {
         <div className="flex text-gray-500">
           <span
             onClick={() => {
-              context.setShouldParallelRoutes(true);
+              context.setParallelRoute("details");
               context.state.itemId = item.id;
             }}
             className="w-40 flex items-center gap-2"
@@ -179,7 +179,7 @@ export function Poll({ item }: ItemProps<typeof POLL_FIELDS>) {
           </span>
           <div
             onClick={() => {
-              context.setShouldParallelRoutes(true);
+              context.setParallelRoute("user");
               context.state.userId = item.by;
             }}
           >
@@ -206,7 +206,7 @@ export function PollOpt({ item }: ItemProps<typeof POLLOPT_FIELDS>) {
         <div className="flex text-gray-500">
           <span
             onClick={() => {
-              context.setShouldParallelRoutes(true);
+              context.setParallelRoute("details");
               context.state.itemId = item.id;
             }}
             className="w-40 flex items-center gap-2"
@@ -220,7 +220,7 @@ export function PollOpt({ item }: ItemProps<typeof POLLOPT_FIELDS>) {
           </span>
           <div
             onClick={() => {
-              context.setShouldParallelRoutes(true);
+              context.setParallelRoute("user");
               context.state.userId = item.by;
             }}
           >

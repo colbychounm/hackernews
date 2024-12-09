@@ -1,7 +1,7 @@
 "use client";
 
 import GET_ITEMS from "@/documents/queries/get-items";
-import { ItemsQuery, ItemsQueryVariables, ListType } from "@/gql/graphql";
+import { ListType } from "@/gql/graphql";
 import { useQuery } from "@apollo/client";
 import Item from "./Item";
 
@@ -10,14 +10,11 @@ interface ListProps {
 }
 
 function PaginatedList({ type }: ListProps) {
-  const { data, fetchMore } = useQuery<ItemsQuery, ItemsQueryVariables>(
-    GET_ITEMS,
-    {
-      variables: {
-        type,
-      },
-    }
-  );
+  const { data, fetchMore } = useQuery(GET_ITEMS, {
+    variables: {
+      type,
+    },
+  });
 
   return (
     <div className="flex-1">

@@ -1,4 +1,5 @@
 import { GraphQLResolveInfo } from 'graphql';
+import { ItemDataSource } from '../data-sources/hackernews-api';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -18,7 +19,7 @@ export type Scalars = {
 };
 
 export type BaseItem = {
-  by: Scalars['String']['output'];
+  by?: Maybe<Scalars['String']['output']>;
   id: Scalars['Int']['output'];
   time: Scalars['Int']['output'];
   type: ItemType;
@@ -26,7 +27,8 @@ export type BaseItem = {
 
 export type Comment = BaseItem & {
   __typename?: 'Comment';
-  by: Scalars['String']['output'];
+  by?: Maybe<Scalars['String']['output']>;
+  comments?: Maybe<Array<Comment>>;
   id: Scalars['Int']['output'];
   kids?: Maybe<Array<Scalars['Int']['output']>>;
   parent: Scalars['Int']['output'];
@@ -57,7 +59,7 @@ export enum ItemType {
 
 export type Job = BaseItem & {
   __typename?: 'Job';
-  by: Scalars['String']['output'];
+  by?: Maybe<Scalars['String']['output']>;
   id: Scalars['Int']['output'];
   score: Scalars['Int']['output'];
   text?: Maybe<Scalars['String']['output']>;
@@ -83,7 +85,7 @@ export type PageInfo = {
 
 export type Poll = BaseItem & {
   __typename?: 'Poll';
-  by: Scalars['String']['output'];
+  by?: Maybe<Scalars['String']['output']>;
   descendants: Scalars['Int']['output'];
   id: Scalars['Int']['output'];
   kids?: Maybe<Array<Scalars['Int']['output']>>;
@@ -97,7 +99,7 @@ export type Poll = BaseItem & {
 
 export type PollOpt = BaseItem & {
   __typename?: 'PollOpt';
-  by: Scalars['String']['output'];
+  by?: Maybe<Scalars['String']['output']>;
   id: Scalars['Int']['output'];
   poll: Scalars['Int']['output'];
   score: Scalars['Int']['output'];
@@ -132,7 +134,8 @@ export type QueryUserArgs = {
 
 export type Story = BaseItem & {
   __typename?: 'Story';
-  by: Scalars['String']['output'];
+  by?: Maybe<Scalars['String']['output']>;
+  comments?: Maybe<Array<Comment>>;
   descendants: Scalars['Int']['output'];
   id: Scalars['Int']['output'];
   kids?: Maybe<Array<Scalars['Int']['output']>>;
@@ -222,16 +225,12 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 ) => TResult | Promise<TResult>;
 
 
-/** Mapping of interface types */
-export type ResolversInterfaceTypes<_RefType extends Record<string, unknown>> = ResolversObject<{
-  BaseItem: ( Comment ) | ( Job ) | ( Poll ) | ( PollOpt ) | ( Story );
-}>;
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
-  BaseItem: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['BaseItem']>;
+  BaseItem: ResolverTypeWrapper<ItemDataSource>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
-  Comment: ResolverTypeWrapper<Comment>;
+  Comment: ResolverTypeWrapper<ItemDataSource>;
   EdgeType: ResolverTypeWrapper<Omit<EdgeType, 'node'> & { node: ResolversTypes['BaseItem'] }>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   ItemConnection: ResolverTypeWrapper<Omit<ItemConnection, 'edges'> & { edges: Array<ResolversTypes['EdgeType']> }>;
@@ -242,16 +241,16 @@ export type ResolversTypes = ResolversObject<{
   Poll: ResolverTypeWrapper<Poll>;
   PollOpt: ResolverTypeWrapper<PollOpt>;
   Query: ResolverTypeWrapper<{}>;
-  Story: ResolverTypeWrapper<Story>;
+  Story: ResolverTypeWrapper<Omit<Story, 'comments'> & { comments?: Maybe<Array<ResolversTypes['Comment']>> }>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   User: ResolverTypeWrapper<User>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
-  BaseItem: ResolversInterfaceTypes<ResolversParentTypes>['BaseItem'];
+  BaseItem: ItemDataSource;
   Boolean: Scalars['Boolean']['output'];
-  Comment: Comment;
+  Comment: ItemDataSource;
   EdgeType: Omit<EdgeType, 'node'> & { node: ResolversParentTypes['BaseItem'] };
   Int: Scalars['Int']['output'];
   ItemConnection: Omit<ItemConnection, 'edges'> & { edges: Array<ResolversParentTypes['EdgeType']> };
@@ -260,21 +259,22 @@ export type ResolversParentTypes = ResolversObject<{
   Poll: Poll;
   PollOpt: PollOpt;
   Query: {};
-  Story: Story;
+  Story: Omit<Story, 'comments'> & { comments?: Maybe<Array<ResolversParentTypes['Comment']>> };
   String: Scalars['String']['output'];
   User: User;
 }>;
 
 export type BaseItemResolvers<ContextType = any, ParentType extends ResolversParentTypes['BaseItem'] = ResolversParentTypes['BaseItem']> = ResolversObject<{
   __resolveType: TypeResolveFn<'Comment' | 'Job' | 'Poll' | 'PollOpt' | 'Story', ParentType, ContextType>;
-  by?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  by?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   time?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['ItemType'], ParentType, ContextType>;
 }>;
 
 export type CommentResolvers<ContextType = any, ParentType extends ResolversParentTypes['Comment'] = ResolversParentTypes['Comment']> = ResolversObject<{
-  by?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  by?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  comments?: Resolver<Maybe<Array<ResolversTypes['Comment']>>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   kids?: Resolver<Maybe<Array<ResolversTypes['Int']>>, ParentType, ContextType>;
   parent?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
@@ -297,7 +297,7 @@ export type ItemConnectionResolvers<ContextType = any, ParentType extends Resolv
 }>;
 
 export type JobResolvers<ContextType = any, ParentType extends ResolversParentTypes['Job'] = ResolversParentTypes['Job']> = ResolversObject<{
-  by?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  by?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   score?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   text?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -315,7 +315,7 @@ export type PageInfoResolvers<ContextType = any, ParentType extends ResolversPar
 }>;
 
 export type PollResolvers<ContextType = any, ParentType extends ResolversParentTypes['Poll'] = ResolversParentTypes['Poll']> = ResolversObject<{
-  by?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  by?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   descendants?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   kids?: Resolver<Maybe<Array<ResolversTypes['Int']>>, ParentType, ContextType>;
@@ -329,7 +329,7 @@ export type PollResolvers<ContextType = any, ParentType extends ResolversParentT
 }>;
 
 export type PollOptResolvers<ContextType = any, ParentType extends ResolversParentTypes['PollOpt'] = ResolversParentTypes['PollOpt']> = ResolversObject<{
-  by?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  by?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   poll?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   score?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
@@ -346,7 +346,8 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 }>;
 
 export type StoryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Story'] = ResolversParentTypes['Story']> = ResolversObject<{
-  by?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  by?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  comments?: Resolver<Maybe<Array<ResolversTypes['Comment']>>, ParentType, ContextType>;
   descendants?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   kids?: Resolver<Maybe<Array<ResolversTypes['Int']>>, ParentType, ContextType>;

@@ -1,5 +1,23 @@
 import { RESTDataSource } from "@apollo/datasource-rest";
-import { BaseItem, ListType, User } from "../types/resolvers";
+import { ListType, User } from "../types/resolvers";
+
+export type ItemDataSource = {
+  id: number;
+  type: "job" | "story" | "comment" | "poll" | "pollopt";
+  by: string;
+  time: number;
+  deleted?: boolean;
+  text?: string;
+  dead?: boolean;
+  parent?: number;
+  poll?: number;
+  kids?: number[];
+  url?: string;
+  score?: number;
+  title?: string;
+  parts?: number[];
+  descendants?: number;
+};
 
 class HackerNewsAPI extends RESTDataSource {
   override baseURL = "https://hacker-news.firebaseio.com";
@@ -9,7 +27,7 @@ class HackerNewsAPI extends RESTDataSource {
   }
 
   async getItem(id: number) {
-    return this.get<BaseItem>(`/v0/item/${id}.json`);
+    return this.get<ItemDataSource>(`/v0/item/${id}.json`);
   }
 
   async getUser(id: string) {

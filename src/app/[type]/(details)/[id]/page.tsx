@@ -1,3 +1,4 @@
+import ItemDetails from "@/components/ItemDetails";
 import { Suspense } from "react";
 
 export default async function Page({
@@ -8,7 +9,7 @@ export default async function Page({
   const id = (await params).id;
   return (
     <Suspense fallback={<>Loading details page...</>}>
-      Details page with {id}
+      <ItemDetails id={+id} />
     </Suspense>
   );
 }
