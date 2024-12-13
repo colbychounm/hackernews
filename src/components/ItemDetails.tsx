@@ -29,7 +29,7 @@ export default function ItemDetails({ id }: { id: number }) {
           >
             <div className="flex flex-col text-sm">
               <div className="font-bold">{comment.by}</div>
-              <div className="flex items-center gap-1 text-gray-500">
+              <div className="flex items-center gap-1">
                 <ClockIcon className="w-4 h-4" />
                 <div>{dayjs.unix(comment.time).fromNow()}</div>
               </div>

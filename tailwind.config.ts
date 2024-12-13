@@ -9,8 +9,23 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        "primary-100": "var(--primary-100)",
+        "primary-500": "var(--primary-500)",
+        "primary-900": "var(--primary-900)",
+
+        "secondary-100": "var(--secondary-100)",
+        "secondary-500": "var(--secondary-500)",
+        "secondary-900": "var(--secondary-900)",
+
+        "grey-100": "var(--grey-100)",
+        "grey-500": "var(--grey-500)",
+        "grey-900": "var(--grey-900)",
+
+        divider: "var(--divider)",
+      },
+      backgroundColor: {
+        default: "var(--black)",
+        paper: "var(--white)",
       },
     },
   },
