@@ -12,14 +12,14 @@ export default function Page() {
     <>
       <div className="flex justify-end gap-3">
         <Link href={`/ask/${context.state.itemId}`}>
-          <ArrowsPointingOutIcon className="w-5 h-5 text-gray-500" />
+          <ArrowsPointingOutIcon className="icon-md text-secondary-900" />
         </Link>
         <button
           onClick={() => {
             context.setParallelRoute("");
           }}
         >
-          <XMarkIcon className="w-5 h-5 text-gray-500" />
+          <XMarkIcon className="icon-md text-secondary-900" />
         </button>
       </div>
 

@@ -23,14 +23,11 @@ export default function ItemDetails({ id }: { id: number }) {
         if (!text) return null;
 
         return (
-          <div
-            key={index}
-            className="flex flex-col pb-8 border-b border-gray-500 border-opacity-40"
-          >
+          <div key={index} className="flex flex-col pb-8 border-divider">
             <div className="flex flex-col text-sm">
               <div className="font-bold">{comment.by}</div>
               <div className="flex items-center gap-1">
-                <ClockIcon className="w-4 h-4" />
+                <ClockIcon className="icon-sm" />
                 <div>{dayjs.unix(comment.time).fromNow()}</div>
               </div>
               {/* <button>
@@ -53,10 +50,10 @@ function CommentSection({ comment }: { comment: any }) {
 
   return (
     <div>
-      <div className="flex flex-col gap-1 text-sm text-gray-500">
+      <div className="flex flex-col gap-1 text-sm text-grey-900">
         <div>{comment.by}</div>
         <div className="flex items-center gap-1">
-          <ClockIcon className="w-4 h-4" />
+          <ClockIcon className="icon-sm" />
           <div>{dayjs.unix(comment.time).fromNow()}</div>
         </div>
         {/* <button>

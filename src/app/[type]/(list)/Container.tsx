@@ -18,8 +18,8 @@ export default function Container({
     <div className="flex px-8 gap-4">
       <div className="flex-1">{type}</div>
       {context?.parallelRoute && (
-        <div className="details sticky top-16">
-          <div className="h-full overflow-auto bg-gray-500 bg-opacity-20 p-4 rounded-xl">
+        <div className="sub-side">
+          <div className="h-full overflow-auto bg-secondary-100 p-4 rounded-xl">
             {context.parallelRoute === "user" && user}
             {context.parallelRoute === "details" && details}
           </div>

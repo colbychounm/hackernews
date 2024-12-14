@@ -15,7 +15,6 @@ export default function Layout({
 }>) {
   return (
     <LayoutProvider>
-      <h1 className="m-8 text-2xl font-bold">Heading</h1>
       <Container type={type} user={user} details={details} />
     </LayoutProvider>
   );

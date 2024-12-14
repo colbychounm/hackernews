@@ -32,7 +32,7 @@ export default function RootLayout({
       >
         <ApolloContainer>
           <div className="flex">
-            <aside className="fixed top-0 w-64 h-screen border-r border-r-gray-500 border-opacity-45">
+            <aside className="fixed top-0 w-64 h-screen border-r border-divider">
               <Sidebar />
             </aside>
             <div className="main">

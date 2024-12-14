@@ -36,7 +36,7 @@ function PaginatedList({ type }: ListProps) {
       </ul>
       {data?.items.pageInfo.hasNextPage && (
         <button
-          className="w-20 my-2 p-2 border rounded-md bg-slate-400 text-black"
+          className="my-2 px-8 py-2 rounded-xl border border-divider"
           onClick={() => {
             fetchMore({
               variables: {
@@ -45,7 +45,7 @@ function PaginatedList({ type }: ListProps) {
             });
           }}
         >
-          More
+          View More
         </button>
       )}
     </div>

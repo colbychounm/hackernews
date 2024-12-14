@@ -26,7 +26,7 @@ const NAVIGATION: NavigationProps[] = [
 export default function Sidebar() {
   return (
     <div className="flex flex-col h-full mx-4">
-      <div className="flex justify-center items-center h-24">
+      <div className="flex items-center h-24">
         <Link href="/" className="font-extrabold text-lg">
           <Image
             src="/yc-logo.svg"
@@ -49,7 +49,7 @@ export default function Sidebar() {
       </nav>
       <div className="h-20">
         <button className="navigation w-full">
-          <Bars3Icon className="w-6 h-6 m-3" />
+          <Bars3Icon className="icon-md m-3" />
           More
         </button>
       </div>
@@ -67,11 +67,8 @@ function Navigation({ to, label, Icon }: NavigationProps) {
   const pathname = usePathname();
 
   return (
-    <Link
-      href={to}
-      className={`navigation ${pathname === to ? "font-extrabold" : ""}`}
-    >
-      <Icon className="w-6 h-6 m-3" />
+    <Link href={to} className={`navigation ${pathname === to ? "active" : ""}`}>
+      <Icon className="icon-md m-3" />
       {label}
     </Link>
   );

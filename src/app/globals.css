@@ -17,9 +17,10 @@
   --grey-500: hsl(0, 1%, 40%);
   --grey-900: hsl(0, 1%, 10%);
 
-  --divider: rgba(0, 0, 0, 0.12);
+  --divider: rgba(0, 0, 0, 0.15);
 
   --side-bar-width: 16rem;
+  --header-height: 2rem;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -37,7 +38,19 @@ body {
 
 @layer components {
   .navigation {
-    @apply h-12 flex items-center rounded-md hover:bg-orange-200 hover:bg-opacity-20 text-lg;
+    @apply h-12 flex items-center rounded-md hover:font-extrabold text-lg;
+  }
+
+  .active {
+    @apply font-extrabold bg-primary-500 text-grey-100;
+  }
+
+  .icon-md {
+    @apply w-6 h-6;
+  }
+
+  .icon-sm {
+    @apply w-4 h-4;
   }
 }
 
@@ -47,8 +60,10 @@ body {
   margin-left: auto;
 }
 
-.details {
-  height: calc(100vh - var(--side-bar-width));
+.sub-side {
+  position: sticky;
+  height: calc(100vh - 2 * var(--header-height));
+  top: var(--header-height);
   width: 32rem;
   > div {
     scrollbar-width: none;
