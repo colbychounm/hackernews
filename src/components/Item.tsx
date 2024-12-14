@@ -1,6 +1,5 @@
 "use client";
 
-import { useLayoutContext } from "@/containers/LayoutContainer";
 import { COMMENT_FIELDS } from "@/documents/fragments/comment";
 import { JOB_FIELDS } from "@/documents/fragments/job";
 import { POLL_FIELDS } from "@/documents/fragments/poll";
@@ -23,7 +22,6 @@ interface ItemProps<Document extends DocumentTypeDecoration<unknown, unknown>> {
 }
 
 export function Story({ item }: ItemProps<typeof STORY_FIELDS>) {
-  const context = useLayoutContext();
   const story = useFragment(STORY_FIELDS, item);
 
   return (
@@ -34,34 +32,26 @@ export function Story({ item }: ItemProps<typeof STORY_FIELDS>) {
         </Link>
 
         <div className="flex text-gray-500">
-          <button
-            onClick={() => {
-              context.setParallelRoute("details");
-              context.state.itemId = item.id;
-            }}
+          <Link
+            href={`/ask/${item.id}`}
             className="w-40 flex items-center gap-2"
           >
             <ChatBubbleBottomCenterTextIcon className="icon-sm" />
             {story.kids?.length} comments
-          </button>
+          </Link>
 
-          <span className="w-40 flex items-center gap-2">
-            <ClockIcon className="icon-sm" />
-            <Link href={`/ask/${item.id}`}>
-              {dayjs.unix(item.time).fromNow()}
-            </Link>
-          </span>
-
-          <button
-            className="flex items-center gap-2"
-            onClick={() => {
-              context.setParallelRoute("user");
-              context.state.userId = item.by;
-            }}
+          <Link
+            href={`/ask/${item.id}`}
+            className="w-40 flex items-center gap-2"
           >
+            <ClockIcon className="icon-sm" />
+            {dayjs.unix(item.time).fromNow()}
+          </Link>
+
+          <Link href={`/user/${item.by}`} className="flex items-center gap-2">
             <UserIcon className="icon-sm" />
             {item.by}
-          </button>
+          </Link>
         </div>
       </div>
 
@@ -74,167 +64,19 @@ export function Story({ item }: ItemProps<typeof STORY_FIELDS>) {
 }
 
 export function Comment({ item }: ItemProps<typeof COMMENT_FIELDS>) {
-  const context = useLayoutContext();
-
-  return (
-    <div className="flex items-center py-4 border-b border-gray-500 border-opacity-65 last:border-0">
-      <div className="flex-1">
-        <h2 className="text-lg font-bold">Title</h2>
-        <div className="flex text-gray-500">
-          <span
-            onClick={() => {
-              context.setParallelRoute("details");
-              context.state.itemId = item.id;
-            }}
-            className="w-40 flex items-center gap-2"
-          >
-            <ChatBubbleBottomCenterTextIcon className="icon-sm" />
-            100 comments
-          </span>
-          <span className="w-40 flex items-center gap-2">
-            <ClockIcon className="icon-sm" />
-            6h ago
-          </span>
-          <div
-            onClick={() => {
-              context.setParallelRoute("user");
-              context.state.userId = item.by;
-            }}
-          >
-            by {item.by}
-          </div>
-        </div>
-      </div>
-
-      <button className="w-10 h-10 flex flex-col items-center p-1 rounded-md bg-gray-600 bg-opacity-25 text-sm font-bold">
-        <ChevronUpIcon />
-        999
-      </button>
-    </div>
-  );
+  return null;
 }
 
 export function Job({ item }: ItemProps<typeof JOB_FIELDS>) {
-  const context = useLayoutContext();
-
-  return (
-    <div className="flex items-center py-4 border-b border-gray-500 border-opacity-65 last:border-0">
-      <div className="flex-1">
-        <h2 className="text-lg font-bold">Title</h2>
-        <div className="flex text-gray-500">
-          <span
-            onClick={() => {
-              context.setParallelRoute("details");
-              context.state.itemId = item.id;
-            }}
-            className="w-40 flex items-center gap-2"
-          >
-            <ChatBubbleBottomCenterTextIcon className="icon-sm" />
-            100 comments
-          </span>
-          <span className="w-40 flex items-center gap-2">
-            <ClockIcon className="icon-sm" />
-            6h ago
-          </span>
-          <div
-            onClick={() => {
-              context.setParallelRoute("user");
-              context.state.userId = item.by;
-            }}
-          >
-            by {item.by}
-          </div>
-        </div>
-      </div>
-
-      <button className="w-10 h-10 flex flex-col items-center p-1 rounded-md bg-gray-600 bg-opacity-25 text-sm font-bold">
-        <ChevronUpIcon />
-        999
-      </button>
-    </div>
-  );
+  return null;
 }
 
 export function Poll({ item }: ItemProps<typeof POLL_FIELDS>) {
-  const context = useLayoutContext();
-
-  return (
-    <div className="flex items-center py-4 border-b border-gray-500 border-opacity-65 last:border-0">
-      <div className="flex-1">
-        <h2 className="text-lg font-bold">Title</h2>
-        <div className="flex text-gray-500">
-          <span
-            onClick={() => {
-              context.setParallelRoute("details");
-              context.state.itemId = item.id;
-            }}
-            className="w-40 flex items-center gap-2"
-          >
-            <ChatBubbleBottomCenterTextIcon className="icon-sm" />
-            100 comments
-          </span>
-          <span className="w-40 flex items-center gap-2">
-            <ClockIcon className="icon-sm" />
-            6h ago
-          </span>
-          <div
-            onClick={() => {
-              context.setParallelRoute("user");
-              context.state.userId = item.by;
-            }}
-          >
-            by {item.by}
-          </div>
-        </div>
-      </div>
-
-      <button className="w-10 h-10 flex flex-col items-center p-1 rounded-md bg-gray-600 bg-opacity-25 text-sm font-bold">
-        <ChevronUpIcon />
-        999
-      </button>
-    </div>
-  );
+  return null;
 }
 
 export function PollOpt({ item }: ItemProps<typeof POLLOPT_FIELDS>) {
-  const context = useLayoutContext();
-
-  return (
-    <div className="flex items-center py-4 border-b border-gray-500 border-opacity-65 last:border-0">
-      <div className="flex-1">
-        <h2 className="text-lg font-bold">Title</h2>
-        <div className="flex text-gray-500">
-          <span
-            onClick={() => {
-              context.setParallelRoute("details");
-              context.state.itemId = item.id;
-            }}
-            className="w-40 flex items-center gap-2"
-          >
-            <ChatBubbleBottomCenterTextIcon className="icon-sm" />
-            100 comments
-          </span>
-          <span className="w-40 flex items-center gap-2">
-            <ClockIcon className="icon-sm" />
-            6h ago
-          </span>
-          <div
-            onClick={() => {
-              context.setParallelRoute("user");
-              context.state.userId = item.by;
-            }}
-          >
-            by {item.by}
-          </div>
-        </div>
-      </div>
-
-      <button className="w-10 h-10 flex flex-col items-center p-1 rounded-md bg-gray-600 bg-opacity-25 text-sm font-bold">
-        <ChevronUpIcon />
-        999
-      </button>
-    </div>
-  );
+  return null;
 }
 
 const Item = {

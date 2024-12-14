@@ -64,7 +64,7 @@ body {
   position: sticky;
   height: calc(100vh - 2 * var(--header-height));
   top: var(--header-height);
-  width: 32rem;
+  width: (100vw - var(--side-bar-width) - 4rem) /2;
   > div {
     scrollbar-width: none;
   }
