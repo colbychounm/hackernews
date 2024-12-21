@@ -1,3 +1,4 @@
+import Loading from "@/components/Loading";
 import PaginatedList from "@/components/PaginatedList";
 import { ListType } from "@/gql/graphql";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
@@ -39,11 +40,13 @@ export default async function Page({
   searchParams,
 }: {
   params: Promise<{ type: string }>;
-  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
+  searchParams?: Promise<{
+    sortBy: ListType.Beststories | ListType.Topstories;
+  }>;
 }) {
   const param = (await params).type;
   const sortBy = (await searchParams)?.sortBy;
-  const listType = mappingListType((await params).type);
+  const listType = sortBy || mappingListType(param);
 
   if (!listType) return null;
 
@@ -100,7 +103,13 @@ export default async function Page({
         />
       </div>
 
-      <Suspense fallback="Loading...">
+      <Suspense
+        fallback={
+          <div className="my-4">
+            <Loading />
+          </div>
+        }
+      >
         <PaginatedList listType={listType} />
       </Suspense>
     </>

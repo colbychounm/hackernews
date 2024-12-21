@@ -2,9 +2,9 @@
 
 import GET_ITEMS from "@/documents/queries/get-items";
 import { ListType } from "@/gql/graphql";
-import { useQuery } from "@apollo/client";
+import { useSuspenseQuery } from "@apollo/client";
 import { ArrowPathIcon } from "@heroicons/react/24/outline";
-import { useSearchParams } from "next/navigation";
+import { useTransition } from "react";
 import Item from "./Item";
 
 interface ListProps {
@@ -12,14 +12,11 @@ interface ListProps {
 }
 
 function PaginatedList({ listType }: ListProps) {
-  const searchParams = useSearchParams();
-  const sortBy = searchParams.get("sortBy");
-
-  const { data, fetchMore, loading } = useQuery(GET_ITEMS, {
+  const [isPending, startTransition] = useTransition();
+  const { data, fetchMore } = useSuspenseQuery(GET_ITEMS, {
     variables: {
-      type: (sortBy as ListType) ?? listType,
+      type: listType,
     },
-    notifyOnNetworkStatusChange: true,
   });
 
   return (
@@ -40,15 +37,17 @@ function PaginatedList({ listType }: ListProps) {
         <button
           className="mt-2 mb-8 px-8 py-2 w-40 h-12 relative left-auto right-auto rounded-xl border border-divider"
           onClick={() => {
-            fetchMore({
-              variables: {
-                after: data.items.pageInfo.endCursor,
-              },
+            startTransition(() => {
+              fetchMore({
+                variables: {
+                  after: data.items.pageInfo.endCursor,
+                },
+              });
             });
           }}
-          disabled={loading}
+          disabled={isPending}
         >
-          {loading ? (
+          {isPending ? (
             <ArrowPathIcon className="icon-sm animate-spin mx-auto" />
           ) : (
             "View More"

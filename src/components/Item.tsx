@@ -13,6 +13,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { ChevronUpIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useMemo } from "react";
 
 interface ItemProps<Document extends DocumentTypeDecoration<unknown, unknown>> {
@@ -22,15 +23,16 @@ interface ItemProps<Document extends DocumentTypeDecoration<unknown, unknown>> {
 
 export function Story({ item, listType }: ItemProps<typeof STORY_FIELDS>) {
   const story = useFragment(STORY_FIELDS, item);
+  const pathname = usePathname();
 
   const headingHref = useMemo(() => {
     switch (listType) {
       case ListType.Askstories:
-        return `/ask/${item.id}`;
+        return `${pathname}/${item.id}`;
       case ListType.Newstories:
       case ListType.Beststories:
       case ListType.Topstories:
-        return `/news/${item.id}`;
+        return `${pathname}/${item.id}`;
       case ListType.Showstories:
         return story.url!;
       default:
@@ -84,7 +86,33 @@ export function Story({ item, listType }: ItemProps<typeof STORY_FIELDS>) {
 }
 
 export function Job({ item }: ItemProps<typeof JOB_FIELDS>) {
-  return null;
+  const job = useFragment(JOB_FIELDS, item);
+
+  return (
+    <div className="flex items-center py-4 border-b border-divider last:border-0">
+      <div className="flex-1">
+        <div className="flex gap-2 items-center">
+          {job.title && (
+            <Heading text={job.title} to={job.url ?? `jobs/${item.id}`} />
+          )}
+
+          {job.url && (
+            <ReferenceLink
+              text={new URL(job.url).hostname}
+              to={`/from/${item.by}`}
+            />
+          )}
+        </div>
+
+        <div className="text-gray-500">
+          <CreatedTime
+            time={dayjs.unix(item.time).fromNow()}
+            to={`jobs/${item.id}`}
+          />
+        </div>
+      </div>
+    </div>
+  );
 }
 
 const Item = {
