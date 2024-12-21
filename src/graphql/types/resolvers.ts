@@ -71,6 +71,7 @@ export type Job = BaseItem & {
 
 export enum ListType {
   Askstories = 'askstories',
+  Beststories = 'beststories',
   Jobstories = 'jobstories',
   Newstories = 'newstories',
   Showstories = 'showstories',
@@ -79,7 +80,7 @@ export enum ListType {
 
 export type PageInfo = {
   __typename?: 'PageInfo';
-  endCursor?: Maybe<Scalars['Int']['output']>;
+  endCursor: Scalars['Int']['output'];
   hasNextPage: Scalars['Boolean']['output'];
 };
 
@@ -309,7 +310,7 @@ export type JobResolvers<ContextType = any, ParentType extends ResolversParentTy
 }>;
 
 export type PageInfoResolvers<ContextType = any, ParentType extends ResolversParentTypes['PageInfo'] = ResolversParentTypes['PageInfo']> = ResolversObject<{
-  endCursor?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  endCursor?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   hasNextPage?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;

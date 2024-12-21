@@ -29,7 +29,7 @@ const typeDefs = gql`
 
   type PageInfo {
     hasNextPage: Boolean!
-    endCursor: Int
+    endCursor: Int!
   }
 
   type Story implements BaseItem {
@@ -111,6 +111,7 @@ const typeDefs = gql`
   enum ListType {
     topstories
     newstories
+    beststories
     askstories
     showstories
     jobstories

@@ -2,7 +2,9 @@
 
 import {
   Bars3Icon,
-  ChatBubbleBottomCenterIcon,
+  BarsArrowUpIcon,
+  EyeIcon,
+  LightBulbIcon,
   QuestionMarkCircleIcon,
 } from "@heroicons/react/24/outline";
 import Image from "next/image";
@@ -12,14 +14,24 @@ import { ComponentType } from "react";
 
 const NAVIGATION: NavigationProps[] = [
   {
+    label: "News",
+    to: "/news",
+    Icon: BarsArrowUpIcon,
+  },
+  {
     label: "Ask",
     to: "/ask",
     Icon: QuestionMarkCircleIcon,
   },
   {
-    label: "Comments",
-    to: "/newcomments",
-    Icon: ChatBubbleBottomCenterIcon,
+    label: "Show",
+    to: "/show",
+    Icon: EyeIcon,
+  },
+  {
+    label: "Jobs",
+    to: "/jobs",
+    Icon: LightBulbIcon,
   },
 ];
 
@@ -27,7 +39,7 @@ export default function Sidebar() {
   return (
     <div className="flex flex-col h-full mx-4">
       <div className="flex items-center h-24">
-        <Link href="/" className="font-extrabold text-lg">
+        <Link href="/news" className="font-extrabold text-lg">
           <Image
             src="/yc-logo.svg"
             alt="YC Logo"

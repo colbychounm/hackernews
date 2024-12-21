@@ -69,6 +69,7 @@ export type Job = BaseItem & {
 
 export enum ListType {
   Askstories = 'askstories',
+  Beststories = 'beststories',
   Jobstories = 'jobstories',
   Newstories = 'newstories',
   Showstories = 'showstories',
@@ -77,7 +78,7 @@ export enum ListType {
 
 export type PageInfo = {
   __typename?: 'PageInfo';
-  endCursor?: Maybe<Scalars['Int']['output']>;
+  endCursor: Scalars['Int']['output'];
   hasNextPage: Scalars['Boolean']['output'];
 };
 
@@ -218,7 +219,7 @@ export type ItemsQuery = { __typename?: 'Query', items: { __typename?: 'ItemConn
       ) | (
         { __typename?: 'Story', id: number, type: ItemType, by?: string | null, time: number }
         & { ' $fragmentRefs'?: { 'StoryFieldsFragment': StoryFieldsFragment } }
-      ) }>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: number | null } } };
+      ) }>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor: number } } };
 
 export type UserQueryVariables = Exact<{
   id: Scalars['String']['input'];

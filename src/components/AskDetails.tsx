@@ -19,7 +19,7 @@ export default function AskDetails({ id }: { id: number }) {
   return (
     <div
       className="leading-loose"
-      dangerouslySetInnerHTML={{ __html: story.text || "" }}
+      dangerouslySetInnerHTML={{ __html: story.title || "" }}
     />
   );
 }

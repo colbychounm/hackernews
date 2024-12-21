@@ -14,7 +14,7 @@ export function makeClient() {
       typePolicies: {
         Query: {
           fields: {
-            items: relayStylePagination(),
+            items: relayStylePagination(["type"]),
           },
         },
       },
