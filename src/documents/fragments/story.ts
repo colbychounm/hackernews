@@ -8,5 +8,6 @@ export const STORY_FIELDS = graphql(`
     score
     title
     url
+    ...CommentFieldsRecursive
   }
 `);
